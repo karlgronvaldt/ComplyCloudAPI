@@ -6,7 +6,7 @@ namespace DoggyCare
     public static class Extensions
     {
         // Create DTO from animal record
-        public static AnimalDTO AsDTO(this AnimalModel animal)
+        public static AnimalDTO AsDTO(this Animal animal)
         {
             return new AnimalDTO
             {

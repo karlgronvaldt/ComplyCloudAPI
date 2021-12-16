@@ -72,7 +72,7 @@ namespace DoggyCare.Controllers
         [HttpPost]
         public ActionResult<AnimalDTO> Create(CreateAnimalDTO animalDTO)
         {
-            AnimalModel animal = new()
+            Animal animal = new()
             {
                 Id = Guid.NewGuid(),
                 Type = animalDTO.Type,
@@ -99,7 +99,7 @@ namespace DoggyCare.Controllers
                 return NotFound();
 
             // Keep original if not updated
-            AnimalModel updatedAnimal = existingAnimal with
+            Animal updatedAnimal = existingAnimal with
             {
                 Owner = (animalDTO.Owner is null) ? existingAnimal.Owner : animalDTO.Owner,
                 Allergy = (animalDTO.Allergy is null) ? existingAnimal.Allergy : animalDTO.Allergy

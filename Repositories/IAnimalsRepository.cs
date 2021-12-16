@@ -6,12 +6,12 @@ namespace DoggyCare.Repositories
 {
     public interface IAnimalsRepository
     {
-        IEnumerable<AnimalModel> GetAnimals();
-        AnimalModel GetAnimal(Guid id);
-        AnimalModel GetAnimalName(string name);
-        AnimalModel GetAnimalOwner(string name);
-        void CreateAnimal(AnimalModel animal);
-        void UpdateAnimal(AnimalModel animal);
+        IEnumerable<Animal> GetAnimals();
+        Animal GetAnimal(Guid id);
+        Animal GetAnimalName(string name);
+        Animal GetAnimalOwner(string name);
+        void CreateAnimal(Animal animal);
+        void UpdateAnimal(Animal animal);
         void DeleteAnimal(Guid id);
     }
 }

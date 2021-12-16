@@ -3,7 +3,7 @@
 namespace DoggyCare.Models
 {
     // The definition of an animal
-    public record AnimalModel
+    public record Animal
     {
         public Guid Id { get; init; }
         public int Type { get; set; } // 0 = Other, 1 = Dog
