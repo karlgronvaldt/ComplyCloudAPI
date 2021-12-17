@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using DoggyCare.Repositories;
 using DoggyCare.Models;
 using DoggyCare.DTOs;
+using MongoDB.Bson;
 
 namespace DoggyCare.Controllers
 {
@@ -74,7 +75,7 @@ namespace DoggyCare.Controllers
         {
             Animal animal = new()
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid(),
                 Type = animalDTO.Type,
                 Name = animalDTO.Name,
                 Breed = animalDTO.Breed,

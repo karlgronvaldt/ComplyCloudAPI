@@ -12,6 +12,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
 
 namespace DoggyCare
 {
@@ -27,8 +31,17 @@ namespace DoggyCare
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
+            BsonSerializer.RegisterSerializer(new DateTimeSerializer(BsonType.String));
+
+            // Injects MongoClient with connection string to MongoDbRepository
+            services.AddSingleton<IMongoClient>(_ => {
+                string connectionString = Configuration.GetConnectionString("DoggyCare");
+                return new MongoClient(connectionString);
+            });
+
             // Create a single instance of the in memory repository (local database)
-            services.AddSingleton<IAnimalsRepository, InMemoryAnimalsRepository>();
+            services.AddSingleton<IAnimalsRepository, MongoDbRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
