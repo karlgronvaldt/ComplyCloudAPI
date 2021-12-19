@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using DoggyCare.Models;
-using MongoDB.Bson;
 
 namespace DoggyCare.Repositories
 {
@@ -10,7 +9,7 @@ namespace DoggyCare.Repositories
         IEnumerable<Animal> GetAnimals();
         Animal GetAnimal(Guid id);
         Animal GetAnimalName(string name);
-        Animal GetAnimalOwner(string name);
+        Animal GetAnimalOwner(string owner);
         void CreateAnimal(Animal animal);
         void UpdateAnimal(Animal animal);
         void DeleteAnimal(Guid id);

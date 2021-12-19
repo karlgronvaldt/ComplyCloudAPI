@@ -12,11 +12,35 @@ namespace DoggyCare.Repositories
         private const string collectionName = "animals";
 
         private readonly IMongoCollection<Animal> animalsCollection;
+        private readonly FilterDefinitionBuilder<Animal> filterBuilder = Builders<Animal>.Filter;
 
         public MongoDbRepository(IMongoClient mongoClient)
         {
             IMongoDatabase database = mongoClient.GetDatabase(databaseName);
             animalsCollection = database.GetCollection<Animal>(collectionName);
+        }
+
+        public IEnumerable<Animal> GetAnimals()
+        {
+            return animalsCollection.Find(new BsonDocument()).ToList();
+        }
+
+        public Animal GetAnimal(Guid id)
+        {
+            var filter = filterBuilder.Eq(animal => animal.Id, id);
+            return animalsCollection.Find(filter).SingleOrDefault();
+        }
+
+        public Animal GetAnimalName(string name)
+        {
+            var filter = filterBuilder.Eq(animal => animal.Name, name);
+            return animalsCollection.Find(filter).SingleOrDefault();
+        }
+
+        public Animal GetAnimalOwner(string owner)
+        {
+            var filter = filterBuilder.Eq(animal => animal.Owner, owner);
+            return animalsCollection.Find(filter).SingleOrDefault();
         }
 
         public void CreateAnimal(Animal animal)
@@ -26,32 +50,14 @@ namespace DoggyCare.Repositories
 
         public void DeleteAnimal(Guid id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Animal GetAnimal(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Animal GetAnimalName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Animal GetAnimalOwner(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Animal> GetAnimals()
-        {
-            throw new NotImplementedException();
+            var filter = filterBuilder.Eq(animal => animal.Id, id);
+            animalsCollection.DeleteMany(filter);
         }
 
         public void UpdateAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            var filter = filterBuilder.Eq(existingAnimal => existingAnimal.Id, animal.Id);
+            animalsCollection.ReplaceOne(filter, animal);
         }
     }
 }

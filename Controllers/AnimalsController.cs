@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using DoggyCare.Repositories;
 using DoggyCare.Models;
 using DoggyCare.DTOs;
-using MongoDB.Bson;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DoggyCare.Controllers
 {
@@ -13,7 +13,7 @@ namespace DoggyCare.Controllers
     [Route("api/[controller]")]
     public class AnimalsController : ControllerBase
     {
-        // Dependency injection of in memory repository (local database so to speak)
+        // Dependency injection of DB repository
         private readonly IAnimalsRepository repository;
 
         public AnimalsController(IAnimalsRepository repository)
@@ -32,7 +32,7 @@ namespace DoggyCare.Controllers
         // Get animal by ID
         // GET api/animals/{id}
         [HttpGet("{id}")]
-        public ActionResult<AnimalDTO> Get(Guid id)
+        public ActionResult<AnimalDTO> GetId(Guid id)
         {
             var animal = repository.GetAnimal(id);
 
@@ -111,6 +111,7 @@ namespace DoggyCare.Controllers
             return NoContent();
         }
 
+        // Delete an animal
         // DELETE api/animals/{id}
         [HttpDelete("{id}")]
         public ActionResult Delete(Guid id)
