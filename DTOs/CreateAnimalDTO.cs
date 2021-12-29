@@ -14,6 +14,6 @@ namespace DoggyCare.DTOs
         [Required]
         public string Owner { get; set; }
         [Required]
-        public string Allergy { get; set; }
+        public string[] Allergy { get; set; }
     }
 }

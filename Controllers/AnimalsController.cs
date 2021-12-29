@@ -14,11 +14,11 @@ namespace DoggyCare.Controllers
     public class AnimalsController : ControllerBase
     {
         // Dependency injection of DB repository
-        private readonly IAnimalsRepository repository;
+        private readonly IAnimalsRepository _repository;
 
         public AnimalsController(IAnimalsRepository repository)
         {
-            this.repository = repository;
+            _repository = repository;
         }
 
         // Get all animals
@@ -26,7 +26,7 @@ namespace DoggyCare.Controllers
         [HttpGet]
         public IEnumerable<AnimalDTO> Get()
         {
-            return repository.GetAnimals().Select(animal => animal.AsDTO());
+            return _repository.GetAnimals().Select(animal => animal.AsDTO());
         }
 
         // Get animal by ID
@@ -34,7 +34,7 @@ namespace DoggyCare.Controllers
         [HttpGet("{id}")]
         public ActionResult<AnimalDTO> GetId(Guid id)
         {
-            var animal = repository.GetAnimal(id);
+            var animal = _repository.GetAnimal(id);
 
             if (animal is null)
                 return NotFound();
@@ -47,7 +47,7 @@ namespace DoggyCare.Controllers
         [HttpGet("name/{name}")]
         public ActionResult<AnimalDTO> GetName(string name)
         {
-            var animal = repository.GetAnimalName(name);
+            var animal = _repository.GetAnimalName(name);
 
             if (animal is null)
                 return NotFound();
@@ -60,7 +60,7 @@ namespace DoggyCare.Controllers
         [HttpGet("owner/{name}")]
         public ActionResult<AnimalDTO> GetOwner(string name)
         {
-            var animal = repository.GetAnimalOwner(name);
+            var animal = _repository.GetAnimalOwner(name);
 
             if (animal is null)
                 return NotFound();
@@ -84,9 +84,9 @@ namespace DoggyCare.Controllers
                 CreatedDate = DateTime.Now
             };
 
-            repository.CreateAnimal(animal);
+            _repository.CreateAnimal(animal);
 
-            return CreatedAtAction(nameof(Get), new { Id = animal.Id }, animal.AsDTO());
+            return CreatedAtAction(nameof(Get), new { animal.Id }, animal.AsDTO());
         }
 
         // Update existing animal
@@ -94,7 +94,7 @@ namespace DoggyCare.Controllers
         [HttpPut("{id}")]
         public ActionResult Update(Guid id, UpdateAnimalDTO animalDTO)
         {
-            var existingAnimal = repository.GetAnimal(id);
+            var existingAnimal = _repository.GetAnimal(id);
 
             if (existingAnimal is null)
                 return NotFound();
@@ -106,7 +106,7 @@ namespace DoggyCare.Controllers
                 Allergy = (animalDTO.Allergy is null) ? existingAnimal.Allergy : animalDTO.Allergy
             };
 
-            repository.UpdateAnimal(updatedAnimal);
+            _repository.UpdateAnimal(updatedAnimal);
 
             return NoContent();
         }
@@ -116,12 +116,12 @@ namespace DoggyCare.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(Guid id)
         {
-            var existingAnimal = repository.GetAnimal(id);
+            var existingAnimal = _repository.GetAnimal(id);
 
             if (existingAnimal is null)
                 return NotFound();
 
-            repository.DeleteAnimal(id);
+            _repository.DeleteAnimal(id);
 
             return NoContent();
         }

@@ -10,7 +10,7 @@ namespace DoggyCare.DTOs
         public string Name { get; init; }
         public string Breed { get; init; }
         public string Owner { get; set; }
-        public string Allergy { get; set; }
+        public string[] Allergy { get; set; }
         public DateTime CreatedDate { get; init; }
     }
 }

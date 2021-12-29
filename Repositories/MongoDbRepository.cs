@@ -31,12 +31,14 @@ namespace DoggyCare.Repositories
             return animalsCollection.Find(filter).SingleOrDefault();
         }
 
+        // TODO: Return (IEnumerable<Animal>?) all animals with the given name instead of one or null
         public Animal GetAnimalName(string name)
         {
             var filter = filterBuilder.Eq(animal => animal.Name, name);
             return animalsCollection.Find(filter).SingleOrDefault();
         }
 
+        // TODO: Return (IEnumerable<Animal>?) all owners with the given name instead of one or null
         public Animal GetAnimalOwner(string owner)
         {
             var filter = filterBuilder.Eq(animal => animal.Owner, owner);
