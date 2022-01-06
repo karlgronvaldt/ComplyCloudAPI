@@ -53,7 +53,7 @@ namespace DoggyCare.Repositories
         public void DeleteAnimal(Guid id)
         {
             var filter = filterBuilder.Eq(animal => animal.Id, id);
-            animalsCollection.DeleteMany(filter);
+            animalsCollection.DeleteOne(filter);
         }
 
         public void UpdateAnimal(Animal animal)
