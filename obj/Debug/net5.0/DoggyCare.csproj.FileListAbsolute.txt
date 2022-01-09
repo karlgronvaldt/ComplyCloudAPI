@@ -76,3 +76,4 @@
 /Users/kag/Projects/ComplyCloudAPI/bin/Debug/net5.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 /Users/kag/Projects/ComplyCloudAPI/bin/Debug/net5.0/Microsoft.IdentityModel.Tokens.dll
 /Users/kag/Projects/ComplyCloudAPI/bin/Debug/net5.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/kag/Projects/ComplyCloudAPI/bin/Debug/net5.0/DoggyCare

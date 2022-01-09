@@ -32,7 +32,7 @@ namespace DoggyCare.Controllers
         [HttpGet("{id}")]
         public ActionResult<UserDTO> GetId(int id)
         {
-            var user = _repository.GetUser(id);
+            User user = _repository.GetUser(id);
 
             if (user is null)
                 return NotFound();
@@ -42,7 +42,7 @@ namespace DoggyCare.Controllers
 
         [HttpPost]
         [Route("login")]
-        public ActionResult<dynamic> Authenticate([FromBody] User model)
+        public ActionResult<dynamic> Authenticate([FromBody] UserDTO model)
         {
             var user = _repository.GetUser(model.Username, model.Password);
 
@@ -61,7 +61,7 @@ namespace DoggyCare.Controllers
         [HttpPost]
         [Route("register")]
         //[Authorize]
-        public ActionResult<User> Register([FromBody] User userDTO)
+        public ActionResult<UserDTO> Register([FromBody] UserDTO userDTO)
         {
             User user = new()
             {
