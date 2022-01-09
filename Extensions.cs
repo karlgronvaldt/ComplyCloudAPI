@@ -19,5 +19,16 @@ namespace DoggyCare
                 CreatedDate = animal.CreatedDate
             };
         }
+
+        // Create DTO from user record
+        public static UserDTO AsDTO(this User user)
+        {
+            return new UserDTO
+            {
+                Username = user.Username,
+                Password = user.Password,
+                Role = user.Role
+            };
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace DoggyCare.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class AnimalsController : ControllerBase
     {
         // Dependency injection of DB repository
@@ -24,6 +25,7 @@ namespace DoggyCare.Controllers
         // Get all animals
         // GET: api/animals
         [HttpGet]
+        [AllowAnonymous]
         public IEnumerable<AnimalDTO> Get()
         {
             return _repository.GetAnimals().Select(animal => animal.AsDTO());
@@ -32,6 +34,7 @@ namespace DoggyCare.Controllers
         // Get animal by ID
         // GET api/animals/{id}
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public ActionResult<AnimalDTO> GetId(Guid id)
         {
             var animal = _repository.GetAnimal(id);
@@ -45,6 +48,7 @@ namespace DoggyCare.Controllers
         // Get animal by name
         // GET api/animals/name/{name}
         [HttpGet("name/{name}")]
+        [AllowAnonymous]
         public ActionResult<AnimalDTO> GetName(string name)
         {
             var animal = _repository.GetAnimalName(name);
@@ -58,6 +62,7 @@ namespace DoggyCare.Controllers
         // Get animal by owner name
         // GET api/animals/owner/{name}
         [HttpGet("owner/{name}")]
+        [AllowAnonymous]
         public ActionResult<AnimalDTO> GetOwner(string name)
         {
             var animal = _repository.GetAnimalOwner(name);
