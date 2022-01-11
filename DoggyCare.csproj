@@ -31,4 +31,7 @@
     <Folder Include="DTOs\" />
     <Folder Include="Services\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Repositories\InMemoryAnimalsRepository.cs" />
+  </ItemGroup>
 </Project>
