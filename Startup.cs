@@ -68,7 +68,6 @@ namespace DoggyCare
 
             });
 
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

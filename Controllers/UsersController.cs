@@ -13,7 +13,9 @@ using DoggyCare.DTOs;
 
 namespace DoggyCare.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUsersRepository _repository;
@@ -32,7 +34,7 @@ namespace DoggyCare.Controllers
         [HttpGet("{id}")]
         public ActionResult<UserDTO> GetId(int id)
         {
-            User user = _repository.GetUser(id);
+            var user = _repository.GetUser(id);
 
             if (user is null)
                 return NotFound();
@@ -42,6 +44,7 @@ namespace DoggyCare.Controllers
 
         [HttpPost]
         [Route("login")]
+        [AllowAnonymous]
         public ActionResult<dynamic> Authenticate([FromBody] UserDTO model)
         {
             var user = _repository.GetUser(model.Username, model.Password);
@@ -60,7 +63,6 @@ namespace DoggyCare.Controllers
 
         [HttpPost]
         [Route("register")]
-        //[Authorize]
         public ActionResult<UserDTO> Register([FromBody] UserDTO userDTO)
         {
             User user = new()
